@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Postagens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        h2 {
+            color: #555;
+            margin-top: 20px;
+        }
+        
+        p {
+            color: #777;
+            line-height: 1.5;
+        }
+        
+        .post-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .empty-message {
+            text-align: center;
+            color: #888;
+        }
+        
+        .new-post-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .form-container button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sua Postagem</h1>
+    <p class="new-post-link"><a href="{% url 'blogs:index' %}">Home</a></p>
+
+    {% for blog_post in blog_posts %}
+    <div class="post-container">
+        <h2>{{ blog_post.title }}</h2>
+        <p>{{ blog_post.text }}</p>
+        <p>{{ blog_post.date_added }}</p>
+    </div>
+ 
+    {% endfor %}
+
+    <form action="{% url 'blogs:new_post' %}" method="post">
+        {% csrf_token %}
+        <div class="form-container">
+            <label for="id_title">Título:</label>
+            {{ form.title }}
+            <label for="id_text">Texto:</label>
+            {{ form.text }}
+            <button type="submit">Postar</button>
+        </div>
+    </form>
+</body>
+</html>

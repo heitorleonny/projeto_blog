@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Registro de Usuário</title>
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    </style>
+</head>
+
+<body>
+    <h1>Registro de Usuário</h1>
+    <form method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Nome de usuário:</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Senha:</label>
+            {{ form.password1 }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirme a senha:</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+            <p class="error">{{ form.password2.errors|first }}</p>
+            {% endif %}
+        </div>
+        <button name="submit">Cadastrar</button>
+        <input type="hidden" name="next" value="{% url 'blogs:index' %}">
+    </form>
+</body>
+
+</html>
